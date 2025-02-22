@@ -10,3 +10,6 @@ This Repository is used for automatically grab your 2MFA Code for VRChat and giv
 
 - [@Steallight](https://www.github.com/steallight)
 
+## ToDo
+
+- [X] Testing
