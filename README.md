@@ -1,7 +1,7 @@
 
 # Google-OAuth
 
-This Repository is used for automatically grab your 2MFA Code for VRChat and give it out as a String. So you can use it inside of other programs
+This Repository is used for automatically grab your Two-Factor Authentication Code for VRChat and give it out as a String. So you can use it inside of other programs
 
 
 
