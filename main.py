@@ -38,18 +38,15 @@ def main():
   try:
     # Call the Gmail API
     service = build("gmail", "v1", credentials=creds)
-    results_mail = service.users().messages().list(userId="luca.wagensommer@gmail.com", maxResults=1, includeSpamTrash=False, q="from:noreply@vrchat.com subject:Your One-Time*").execute()
-
-    print(results_mail)
+    results_mail = service.users().messages().list(userId="luca.wagensommer@gmail.com", maxResults=1, includeSpamTrash=False, q="is:unread from:noreply@vrchat.com subject:Your One-Time*").execute()
     ids = results_mail.get("messages", [])
 
 
     if not ids:
-      print("No labels found.")
+      print("Keine Mails gefunden")
       return
     for id in ids:
       msg_id = id["id"]
-      print(msg_id)
 
     if not msg_id == "":
       results_mail_single = service.users().messages().get(userId="luca.wagensommer@gmail.com", id=msg_id).execute()
@@ -61,6 +58,8 @@ def main():
           subject = header["value"]
           break
       print(subject.split("Your One-Time Code is ", 1)[1])
+
+      service.users().messages().modify(userId="luca.wagensommer@gmail.com",id=msg_id,body={"removeLabelIds":["UNREAD"]}).execute()
 
 
   except HttpError as error:
