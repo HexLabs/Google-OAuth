@@ -15,7 +15,10 @@ def main():
   """Shows basic usage of the Gmail API.
   Lists the user's Gmail labels.
   """
+
+  deine_email = "<EMAIL>"
   global msg_id
+
   creds = None
   # The file token.json stores the user's access and refresh tokens, and is
   # created autoatically when tmhe authorization flow completes for the first
@@ -38,7 +41,7 @@ def main():
   try:
     # Call the Gmail API
     service = build("gmail", "v1", credentials=creds)
-    results_mail = service.users().messages().list(userId="luca.wagensommer@gmail.com", maxResults=1, includeSpamTrash=False, q="is:unread from:noreply@vrchat.com subject:Your One-Time*").execute()
+    results_mail = service.users().messages().list(userId=deine_email, maxResults=1, includeSpamTrash=False, q="is:unread from:noreply@vrchat.com subject:Your One-Time*").execute()
     ids = results_mail.get("messages", [])
 
 
@@ -49,7 +52,7 @@ def main():
       msg_id = id["id"]
 
     if not msg_id == "":
-      results_mail_single = service.users().messages().get(userId="luca.wagensommer@gmail.com", id=msg_id).execute()
+      results_mail_single = service.users().messages().get(userId=deine_email, id=msg_id).execute()
       headers = results_mail_single.get("payload", {}).get("headers", [])
       subject = None
 
@@ -59,7 +62,7 @@ def main():
           break
       print(subject.split("Your One-Time Code is ", 1)[1])
 
-      service.users().messages().modify(userId="luca.wagensommer@gmail.com",id=msg_id,body={"removeLabelIds":["UNREAD"]}).execute()
+      service.users().messages().modify(userId=deine_email,id=msg_id,body={"removeLabelIds":["UNREAD"]}).execute()
 
 
   except HttpError as error:
