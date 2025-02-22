@@ -1,16 +1,16 @@
-# This is a sample Python script.
+from simplegmail import Gmail
+from simplegmail.query import construct_query
 
-# Press Umschalt+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+gmail = Gmail()
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
+messages = gmail.get_unread_inbox()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+query_params = {
+    "newer_than": (1,"day"),
+    "unread": True
+}
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+messages = gmail.get_messages(query=construct_query(query_params))
+
+print(messages)
