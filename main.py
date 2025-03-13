@@ -12,11 +12,7 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 
 
 def main():
-  """Shows basic usage of the Gmail API.
-  Lists the user's Gmail labels.
-  """
-
-  deine_email = "<EMAIL>"
+  deine_email = "<Your-Email>"
   global msg_id
 
   creds = None
